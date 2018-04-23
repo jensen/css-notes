@@ -67,11 +67,15 @@ a:visited {
 nav {
   background-color: #E99128;
   padding: 0 2rem;
+  line-height: 2rem;
 }
 
 nav a {
   color: #EFF0EA;
-  line-height: 2rem;
+}
+
+nav a:visited {
+  color: #EFF0EA;
 }
 
 .center {
