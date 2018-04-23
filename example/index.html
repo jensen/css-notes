@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>CSS: The Box Model</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500|Roboto+Mono:300|Spectral:500" rel="stylesheet">
+  <link href="reset.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <div class="center">
+      <a href="https://github.com/jensen/css-notes/">Source Code</a>
+    </div>
+  </nav>
+  <main class="center">
+    <h1>CSS: The Box Model</h1>
+    <h2>Client Side Web Technology</h2>
+    <p>This week we focus on HTML, CSS and JavaScript. There are two common models for delivering a client application to the browser.</p>
+    <ol>
+      <li>Each request to the server returns HTML that the browser renders. Commonly called a 'CRUD' application.</li>
+      <li>The initial request that the user makes retrieves the HTML, CSS and JS that contains the application code. Further requests retrieve data and the DOM is updated. Can be referred to as a 'SPA' or single page application.</li>
+    </ol>
+    <p>Last week you used the first approach to make the client portion of TinyApp. You didn't spend a lot of time with CSS and client side JS. Instead templates were created and executed on the server side to generate dynamic pages with HTML.</p>
+    <h3>Tweeter</h3>
+    <p>The project this week is a single page application. We will start by using CSS to style the user interface. Then we will use jQuery to manipulate the DOM and Ajax to retrieve data without requiring a browser refresh.</p>
+    <p>Later in the week the assignments will take you through the process of refactoring the server to use a database.</p>
+    <h2>Semantic HTML</h2>
+    <p>HTML has nothing to do with the way a document looks. HTML allows us to provide context to the content in a document. HTML5 has a number of semantic elements. This means that we can use HTML to highlight the meaning of content. Tags like <span class="code">&lt;article&gt;</span>, <span class="code">&lt;nav&gt;</span> and <span class="code">&lt;footer&gt;</span> are good examples of this. It's not a bad idea to check what tags are available on <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN</a>.</p>
+    <p>This is an example of a basic HTML template to start with.</p>
+    <pre class="block">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+  &lt;title&gt;&lt;&#x2F;title&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;&lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;</pre>
+    <ul>
+      <li>
+        <span class="code">&lt;!doctype html&gt;</span> Render the document in 'standards' mode
+      </li>
+      <li>
+        <span class="code">&lt;html lang=&quot;en&quot;&gt;</span> The entire document must be wrapped in exactly one html tag
+          lang="en" Recommended by W3C to declare the language of the document
+      </li>
+      <li>
+        <span class="code">&lt;head&gt;</span> Contains exactly one head tag that describes meta information that describes the contents of the body tag
+      </li>
+      <li>
+        <span class="code">&lt;meta charset=&quot;utf-8&quot;&gt;</span> Avoid some bugs due to not specifying the document encoding
+      </li>
+      <li>
+        <span class="code">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;</span> Responsive design stuff
+      </li>
+      <li>
+        <span class="code">&lt;title&gt;&lt;&#x2F;title&gt;</span> The title of the document, show in the tab
+      </li>
+      <li>
+        <span class="code">&lt;body&gt;&lt;&#x2F;body&gt;</span> Contains exactly one body tag that describes anything you want to be visible
+      </li>
+    </ul>
+    <h2>Cascading Style Sheets</h2>
+    <p>The technology that we use to define the way that the documents looks is CSS. The term 'Cascading' describes the behaviour where styles applied to one element are inherited by it's children.</p>
+    <pre class="block">&lt;html&gt;
+&lt;body&gt;
+  Content
+  &lt;div&gt;
+    Content
+    &lt;p&gt;Content&lt;&#x2F;p&gt;
+    &lt;&#x2F;div&gt;
+  &lt;&#x2F;body&gt;
+&lt;&#x2F;html&gt;</pre>
+    <pre class="block">
+html {
+  background-color: mediumaquamarine;
+  color: floralwhite;
+}
+
+body {
+  border: 4px solid darkorange;
+}
+
+div {
+  background-color: darkslategray;
+  color: darkorange;
+}
+
+p {
+  color: floralwhite;
+}</pre>
+    <p>With this example we set the color of all content within the <span class="code">html</span> tag to 'floralwhite'. That means that the content within the body tag will also be white. We set the color of the content within the <span class="code">div</span> to 'darkorange', and back to 'floralwhite' in the <span class="code">p</span> tag. Some properties like <span class="code">border</span> need to be applied specifically to each tag that needs a border.</p>
+    <p>Load <span class="code">cascade.html</span> into the browser and check the Chrome Developer Tools to see how the styles are applied.</p> 
+    <h2>Defining Styles</h2>
+    <p>It is impossible to learn CSS in a day. Don't expect to be comfortable with it by the end of the week. If CSS is something you want to focus on for your job then you will need to spend a lot of time practicing. A good place to start is the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> documentation on MDN.</p>
+    <p>There are a few ways to define styles within a document.</p>
+    <ol>
+      <li>Use a <span class="code">&lt;style&gt;</span> tag in the <span class="code">&lt;head&gt;</span>.</li>
+      <li>Use a <span class="code">&lt;link&gt;</span> tag in the <span class="code">&lt;head&gt;</span>.</li>
+      <li>Provide a style attribute to an element.</li>
+    </ol>
+    <p>Each of these approaches has a purpose. The approach that you will use most often includes external style sheet documents with a <span class="code">&lt;link&gt;</span> tag.</p>
+    <h2>Boxes</h2>
+    <p>It's all boxes. We can see this by opening the console and applying a new style to any document.</p>
+    <pre class="block">var style = document.createElement('style')
+document.querySelector('head').append(style)
+
+style.innerHTML = `
+* {
+  outline: solid 1px red;
+}`</pre>
+    <p>All of the elements should have a red border. This highlights the box model.</p>
+    <h2>The Syntax</h2>
+    <p>The ability to style something depends on what style <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">properties</a> are supported by the browser. Properties can have values assigned to them. If we want to set the background colour for something that contains that property we can do assign it <span class="code">background-color: #fff</span>.</p>
+    <p>If we want to provide multiple declarations, we can separate them by a semi-colon <span class="code">background-color: #fff; color: #000</span>. This works well for assigning styles directly to elements with the style attribute. We want to avoid doing this, since it doesn't scale very well.</p>
+    <p>Instead a good approach is to setup a rule. A rule allows us to provide one or more selectors to match. We can use a declaration block to group a series of declarations.</p>
+    <pre class="block">/*
+selector list {
+  property: value;
+}
+*/
+
+div, p {
+  color: black;
+}</pre>
+    <p>More details available on <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax">MDN</a>.</p>
+    <h2>The Box Model</h2>
+    <p>There are 5 properties that contribute to the sizing and layout of an element.</p>
+    <ul>
+      <li>Content: Area that contains the content.</li>
+      <li>Padding: The whitespace between the content and the border.</li>
+      <li>Border: A border around the elment.</li>
+      <li>Margin: The whitespace around the border.</li>
+      <li>Position: More on this later.</li>
+    </ul>
+    <p>There are <span class="code">width</span> and <span class="code">height</span> properties that affect the size of the content area. When setting the <span class="code">padding</span> or <span class="code">margin</span> you need to define the values for the top, right, bottom and left sides of the box.</p>
+    <pre class="block">nav {
+  padding-top: 100px;
+  padding-right: 200px;
+  padding-bottom: 300px;
+  padding-left: 400px;
+}</pre>
+    <p>If the padding is meant to be the same all the way around the box, then you could use a shorthand property.</p>
+    <pre class="block">nav {
+  padding: 100px;
+}</pre>
+    <p>It's also possible to set multiple values with a shorthand property. The order for the properties is top, right, bottom and left. The acronym <strong>TRBL</strong> is a good way to remember this.</p>
+    <pre class="block">nav {
+  padding: 100px 200px 300px 400px;
+}</pre>
+    <p>More <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties">shorthand properties</a> can be used to reduce the amount of typing.</p>
+    <h2>Block-level vs. Inline</h2>
+    <p>We can specify how we want an element to behave within the layout. The two primary settings for the <span class="code">display</span> property are 'block' and 'inline'. There are a lot of other options too. To start just focus on understanding the difference between 'block' and 'inline'.</p>
+    <ul>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">Block-level elements</a> can have a width and a height. Consecutive block-level elements will each break to their own line. The display property set to 'block' by default.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">Inline elements</a> cannot have their width and height set. Inline elements do not break to a new line, they will flow with the text around them. The display property is set to 'inline' by default.</li>
+    </ul>
+    <p>More on <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display">MDN CSS Display</a>.</p>
+    <h3>Inline Block</h3>
+    <p>The inline-block flows with surrounding text like an inline element. It can also be sized with width and height like a block-level element. This improves our options when creating layouts. See the <span class="code">blockfloat.html</span> example for usage.</p>
+    <h2>Box Sizing</h2>
+    <p>It's important to bring up the topic of the <span class="code">box-sizing</span> property. CSS originally implemented the sizing of elements as <span class="code">content + padding + border</span>.</p>
+    <pre class="block">div {
+  width: 100px;
+  height: 100px;
+  padding: 20px;
+  border: 10px solid black;
+}</pre>
+    <p>When inspecting this div in the developer tools it is reported that this box is 160x160 pixels. If we want the div to size based on width and height with padding and borders included we can set the <span class="code">box-sizing</span> property.</p>
+    <pre class="block">div {
+  box-sizing: border-box;
+}</pre>
+    <p>Now when the box is being sized it will only take up 100x100px of space.</p>
+    <pre class="block">* {
+  box-sizing: border-box;
+}</pre>
+    <p>It would be more common to apply it to all elements with a wildcard like <span class="code">*</span>.</p>
+    <h3>CSS Resets</h3>
+    <p>Browsers have their own 'user-agent' stylesheets. These are the default styles applied to HTML tags. Not all browsers apply the same base set of styles. You can spend a lot of time altering your styles to ensure defaults are overridden.</p>
+    <p>A better approach is to use a CSS reset to ensure that the same base styles are applied to all elements for all browsers.</p>
+    <p>A reset can be relatively simple like the one created by <a href="http://meyerweb.com/eric/tools/css/reset/">Eric Meyer</a>. Another popular one 'normalizes' the stylesheets across browsers. It's called <a href="https://necolas.github.io/normalize.css/">Normalize.css</a>. You can either link it from a CDN or download the reset code into a local file.</p>
+    <h3>Layouts with float?</h3>
+    <p>When the <span class="code">float</span> property was introduced its intended use was newspaper style content layout. Images would be <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float">floated</a>, and text would wrap around them. As design on the web evolved <span class="code">float</span> became the most popular approach to building column based <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Floats">layouts</a>.</p>
+    <p><a href="https://css-tricks.com/all-about-floats/">All About Floats</a></p>
+    <h3>Clearing Floats</h3>
+    <p>Any element that is below the floats that isn't floated itself will wrap around the floated elements. The way to resolve this is the clear the floats.</p>
+    <pre class="block">div.clear {
+  clear: both;
+}</pre>
+    <p>The <span class="code">clear</span> property can take three values.</p>
+    <ul>
+      <li><span class="code">left</span>: clear left floats</li>
+      <li><span class="code">right</span>: clear right floats</li>
+      <li><span class="code">both</span>: clear left and right floats</li>
+    </ul>
+    <p>Another approach is to apply a 'clearfix' to the parent of the floated elements. Now you don't have to remember to add an extra element after the floats. The 'clearfix' hack has been around for a long time. It's imeplementation has changed as older browsers no longer get used. With modern browsers there are alternatives to using floats for layouts.</p>
+    <strong>Ladies & Gentlemen, the clearfix.</strong>
+    <pre class="block">div.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}</pre>
+    <p>The clearfix uses a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/pseudo-elements">pseudo-element</a>. This is a topic that needs to be skimmed for now and then learned after the basics are well understood. The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/pseudo-classes">pseudo-class</a> falls into the same category.</p>
+    <h3>A Flexible Alternative</h3>
+    <p>Flexbox is an alternative to float and clear. It has been designed to allow for layouts that flow vertically or horizontally. This is the modern approach I would recommend. It was designed to solve the column layout problem.</p>
+    <p><a href="https://caniuse.com/#search=flexbox">Flexbox Browser Support (97.76%)</a></p>
+    <h2>Learning More</h2>
+    <p>There are a lot of resources for CSS. It is very easy to fall into the habit of finding someone elses example. Copying it and pushing it around until it works for you. It may seem like this is an easier solution than actually learning CSS. CSS is one area that you can get yourself into trouble with bad early decisions.</p>
+    <p>Just like anything it will take time, and just like anything it feels more complicated than it actually is.</p>
+    <ul>
+      <li><a href="https://css-tricks.com/">CSS Tricks</a></li>
+      <li><a href="http://guyroutledge.github.io/box-model/">CSS Box Model</a></li>
+      <li><a href="http://learnlayout.com/">Learn Layout</a></li>
+      <li><a href="http://alistapart.com/topic/css">A List Apart CSS</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">CSS Grid Layout</a></li>
+      <li><a href="http://getbem.com/">BEM Methodology</a></li>
+    </ul> 
+    <p>We aren't worrying about the latest CSS frameworks at this point. There are also a lot of popular tools like Sass that we can work with later.</p>
+    <h2>Bonus</h2>
+    <p>You are going to notice that when you search for HTML, CSS and JavaScript keywords the primary results will be from W3Schools. Avoid these results. Anytime you search for something add the term 'MDN' for Mozilla Developer Network documentation. Even better would be to use the search at <a href="https://developer.mozilla.org/">developer.mozilla.org</a>.</p>
+    <p>Good search engine optimization doesn't mean good documentation. The W3Schools material is likely to include the information you need. In my opinion it doesn't provide the same quality of information and provides a dated user experience.</p>
+    <p>Google helps us find a lot of good information. It is important to start recognizing the difference between good and bad documentation. Clicking on the first returned result without considering the source is a good habit to <strong>break</strong>.</p>
+  </main>
+</body>
+</html>
