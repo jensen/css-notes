@@ -19,7 +19,7 @@
     <h2>Client Side Web Technology</h2>
     <p>This week we focus on HTML, CSS and JavaScript. There are two common models for delivering a client application to the browser.</p>
     <ol>
-      <li>Each request to the server returns HTML that the browser renders. Commonly called a 'CRUD' application.</li>
+      <li>Each request to the server returns HTML that the browser renders. The server is setup to serve multiple pages.</li>
       <li>The initial request that the user makes retrieves the HTML, CSS and JS that contains the application code. Further requests retrieve data and the DOM is updated. Can be referred to as a 'SPA' or single page application.</li>
     </ol>
     <p>Last week you used the first approach to make the client portion of TinyApp. You didn't spend a lot of time with CSS and client side JS. Instead templates were created and executed on the server side to generate dynamic pages with HTML.</p>
@@ -92,7 +92,7 @@ p {
   color: floralwhite;
 }</pre>
     <p>With this example we set the color of all content within the <span class="code">html</span> tag to 'floralwhite'. That means that the content within the body tag will also be white. We set the color of the content within the <span class="code">div</span> to 'darkorange', and back to 'floralwhite' in the <span class="code">p</span> tag. Some properties like <span class="code">border</span> need to be applied specifically to each tag that needs a border.</p>
-    <p>Load <span class="code">cascade.html</span> into the browser and check the Chrome Developer Tools to see how the styles are applied.</p> 
+    <p>Load <span class="code">cascade.html</span> into the browser and check the Chrome Developer Tools to see how the styles are applied.</p>
     <h2>Defining Styles</h2>
     <p>It is impossible to learn CSS in a day. Don't expect to be comfortable with it by the end of the week. If CSS is something you want to focus on for your job then you will need to spend a lot of time practicing. A good place to start is the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS</a> documentation on MDN.</p>
     <p>There are a few ways to define styles within a document.</p>
@@ -113,8 +113,8 @@ style.innerHTML = `
 }`</pre>
     <p>All of the elements should have a red border. This highlights the box model.</p>
     <h2>The Syntax</h2>
-    <p>The ability to style something depends on what style <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">properties</a> are supported by the browser. Properties can have values assigned to them. If we want to set the background colour for something that contains that property we can do assign it <span class="code">background-color: #fff</span>.</p>
-    <p>If we want to provide multiple declarations, we can separate them by a semi-colon <span class="code">background-color: #fff; color: #000</span>. This works well for assigning styles directly to elements with the style attribute. We want to avoid doing this, since it doesn't scale very well.</p>
+    <p>The ability to style something depends on what style <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">properties</a> are supported by the browser. Properties can have values assigned to them. If we want to set the background colour for something that contains that property we can assign it <span class="code">background-color: #fff</span>.</p>
+    <p>If we want to provide multiple declarations, we can separate them with a semi-colon <span class="code">background-color: #fff; color: #000</span>. This works well for assigning styles directly to elements with the style attribute. We want to avoid doing this, since it doesn't scale very well.</p>
     <p>Instead a good approach is to setup a rule. A rule allows us to provide one or more selectors to match. We can use a declaration block to group a series of declarations.</p>
     <pre class="block">/*
 selector list {
@@ -131,7 +131,7 @@ div, p {
     <ul>
       <li>Content: Area that contains the content.</li>
       <li>Padding: The whitespace between the content and the border.</li>
-      <li>Border: A border around the elment.</li>
+      <li>Border: A border around the element.</li>
       <li>Margin: The whitespace around the border.</li>
       <li>Position: More on this later.</li>
     </ul>
@@ -154,7 +154,7 @@ div, p {
     <h2>Block-level vs. Inline</h2>
     <p>We can specify how we want an element to behave within the layout. The two primary settings for the <span class="code">display</span> property are 'block' and 'inline'. There are a lot of other options too. To start just focus on understanding the difference between 'block' and 'inline'.</p>
     <ul>
-      <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">Block-level elements</a> can have a width and a height. Consecutive block-level elements will each break to their own line. The display property set to 'block' by default.</li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">Block-level elements</a> can have a width and a height. Consecutive block-level elements will each break to their own line. The display property is set to 'block' by default.</li>
       <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">Inline elements</a> cannot have their width and height set. Inline elements do not break to a new line, they will flow with the text around them. The display property is set to 'inline' by default.</li>
     </ul>
     <p>More on <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display">MDN CSS Display</a>.</p>
@@ -197,7 +197,7 @@ div, p {
     </ul>
     <p>Another approach is to apply a 'clearfix' to the parent of the floated elements. Now you don't have to remember to add an extra element after the floats. The 'clearfix' hack has been around for a long time. It's imeplementation has changed as older browsers no longer get used. With modern browsers there are alternatives to using floats for layouts.</p>
     <strong>Ladies & Gentlemen, the clearfix.</strong>
-    <pre class="block">div.row:after {
+    <pre class="block">div.row::after {
   content: "";
   display: table;
   clear: both;
@@ -216,7 +216,7 @@ div, p {
       <li><a href="http://alistapart.com/topic/css">A List Apart CSS</a></li>
       <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">CSS Grid Layout</a></li>
       <li><a href="http://getbem.com/">BEM Methodology</a></li>
-    </ul> 
+    </ul>
     <p>We aren't worrying about the latest CSS frameworks at this point. There are also a lot of popular tools like Sass that we can work with later.</p>
     <h2>Bonus</h2>
     <p>You are going to notice that when you search for HTML, CSS and JavaScript keywords the primary results will be from W3Schools. Avoid these results. Anytime you search for something add the term 'MDN' for Mozilla Developer Network documentation. Even better would be to use the search at <a href="https://developer.mozilla.org/">developer.mozilla.org</a>.</p>

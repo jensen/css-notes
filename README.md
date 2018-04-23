@@ -4,7 +4,7 @@
 
 This week we focus on HTML, CSS and JavaScript. There are two common models for delivering a client application to the browser.
 
-1. Each request to the server returns HTML that the browser renders. Commonly called a 'CRUD' application.
+1. Each request to the server returns HTML that the browser renders. The server is setup to serve multiple pages.
 2. The initial request that the user makes retrieves the HTML, CSS and JS that contains the application code. Further requests retrieve data and the DOM is updated. Can be referred to as a 'SPA' or single page application.
 
 Last week you used the first approach to make the client portion of TinyApp. You didn't spend a lot of time with CSS and client side JS. Instead templates were created and executed on the server side to generate dynamic pages with HTML.
@@ -112,9 +112,9 @@ All of the elements should have a red border. This highlights the box model.
 
 ## The Syntax
 
-The ability to style something depends on what style [properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) are supported by the browser. Properties can have values assigned to them. If we want to set the background colour for something that contains that property we can do assign it `background-color: #fff`.
+The ability to style something depends on what style [properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) are supported by the browser. Properties can have values assigned to them. If we want to set the background colour for something that contains that property we can assign it `background-color: #fff`.
 
-If we want to provide multiple declarations, we can separate them by a semi-colon `background-color: #fff; color: #000`. This works well for assigning styles directly to elements with the style attribute. We want to avoid doing this, since it doesn't scale very well.
+If we want to provide multiple declarations, we can separate them with a semi-colon `background-color: #fff; color: #000`. This works well for assigning styles directly to elements with the style attribute. We want to avoid doing this, since it doesn't scale very well.
 
 Instead a good approach is to setup a rule. A rule allows us to provide one or more selectors to match. We can use a declaration block to group a series of declarations.
 
@@ -134,11 +134,11 @@ More details available on [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS
 
 ## The Box Model
 
-There are 5 properties that contribute to the sizing and layout of an element. 
+There are 5 properties that contribute to the sizing and layout of an element.
 
 - Content: Area that contains the content.
 - Padding: The whitespace between the content and the border.
-- Border: A border around the elment.
+- Border: A border around the element.
 - Margin: The whitespace around the border.
 - Position: More on this later.
 
@@ -175,7 +175,7 @@ More [shorthand properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Sho
 
 We can specify how we want an element to behave within the layout. The two primary settings for the `display` property are 'block' and 'inline'. There are a lot of other options too. To start just focus on understanding the difference between 'block' and 'inline'.
 
-- [Block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements) can have a width and a height. Consecutive block-level elements will each break to their own line. The display property set to 'block' by default.
+- [Block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements) can have a width and a height. Consecutive block-level elements will each break to their own line. The display property is set to 'block' by default.
 - [Inline elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements) cannot have their width and height set. Inline elements do not break to a new line, they will flow with the text around them. The display property is set to 'inline' by default.
 
 More on [MDN CSS Display](https://developer.mozilla.org/en-US/docs/Web/CSS/display).
@@ -199,7 +199,7 @@ div {
 
 When inspecting this div in the developer tools it is reported that this box is 160x160 pixels. If we want the div to size based on width and height with padding and borders included we can set the `box-sizing` property.
 
-```css 
+```css
 div {
   box-sizing: border-box;
 }
@@ -217,15 +217,15 @@ It would be more common to apply it to all elements with a wildcard like `*`.
 
 ## CSS Resets
 
-Browsers have their own 'user-agent' stylesheets. These are the default styles applied to HTML tags. Not all browsers apply the same base set of styles. You can spend a lot of time altering your styles to ensure defaults are overridden. 
+Browsers have their own 'user-agent' stylesheets. These are the default styles applied to HTML tags. Not all browsers apply the same base set of styles. You can spend a lot of time altering your styles to ensure defaults are overridden.
 
-A better approach is to use a CSS reset to ensure that the same base styles are applied to all elements for all browsers. 
+A better approach is to use a CSS reset to ensure that the same base styles are applied to all elements for all browsers.
 
 A reset can be relatively simple like the one created by [Eric Meyer](http://meyerweb.com/eric/tools/css/reset/). Another popular one 'normalizes' the stylesheets across browsers. It's called [Normalize.css](https://necolas.github.io/normalize.css/). You can either link it from a CDN or download the reset code into a local file.
 
 ## Layouts with float?
 
-When the `float` property was introduced its intended use was newspaper style content layout. Images would be [floated](https://developer.mozilla.org/en-US/docs/Web/CSS/float), and text would wrap around them. As design on the web evolved `float` became the most popular approach to building column based [layouts](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Floats). 
+When the `float` property was introduced its intended use was newspaper style content layout. Images would be [floated](https://developer.mozilla.org/en-US/docs/Web/CSS/float), and text would wrap around them. As design on the web evolved `float` became the most popular approach to building column based [layouts](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Floats).
 
 [All About Floats](https://css-tricks.com/all-about-floats/)
 
@@ -250,11 +250,11 @@ Another approach is to apply a 'clearfix' to the parent of the floated elements.
 __Ladies & Gentlemen, the clearfix.__
 
 ```css
-div.row:after {
+div.row::after {
   content: "";
   display: table;
   clear: both;
-} 
+}
 ```
 
 The clearfix uses a [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/pseudo-elements). This is a topic that needs to be skimmed for now and then learned after the basics are well understood. The [pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/pseudo-classes) falls into the same category.
@@ -267,7 +267,7 @@ Flexbox is an alternative to float and clear. It has been designed to allow for 
 
 ## Learning More
 
-There are a lot of resources for CSS. It is very easy to fall into the habit of finding someone elses example. Copying it and pushing it around until it works for you. It may seem like this is an easier solution than actually learning CSS. CSS is one area that you can get yourself into trouble with bad early decisions. 
+There are a lot of resources for CSS. It is very easy to fall into the habit of finding someone elses example. Copying it and pushing it around until it works for you. It may seem like this is an easier solution than actually learning CSS. CSS is one area that you can get yourself into trouble with bad early decisions.
 
 Just like anything it will take time, and just like anything it feels more complicated than it actually is.
 
@@ -282,7 +282,7 @@ We aren't worrying about the latest CSS frameworks at this point. There are also
 
 ## Bonus
 
-You are going to notice that when you search for HTML, CSS and JavaScript keywords the primary results will be from W3Schools. Avoid these results. Anytime you search for something add the term 'MDN' for Mozilla Developer Network documentation. Even better would be to use the search at [developer.mozilla.org](https://developer.mozilla.org/). 
+You are going to notice that when you search for HTML, CSS and JavaScript keywords the primary results will be from W3Schools. Avoid these results. Anytime you search for something add the term 'MDN' for Mozilla Developer Network documentation. Even better would be to use the search at [developer.mozilla.org](https://developer.mozilla.org/).
 
 Good search engine optimization doesn't mean good documentation. The W3Schools material is likely to include the information you need. In my opinion it doesn't provide the same quality of information and provides a dated user experience.
 
