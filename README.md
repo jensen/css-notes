@@ -1,5 +1,7 @@
 # CSS: The Box Model
 
+Slides and notes available at [https://github.com/jensen/css-notes/](https://github.com/jensen/css-notes/)
+
 ## Client Side Web Technology
 
 This week we focus on HTML, CSS and JavaScript. There are two common models for delivering a client application to the browser.
